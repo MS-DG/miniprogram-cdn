@@ -114,7 +114,7 @@ export function buildCompressedUrl(option: CDNOptions): string {
     const url = config.replaceUrl(option.url, "https://mpfcdnimage.live.com/");
     const ext = getExt(url);
     //gif图不处理
-    if (ext === ".gif") {
+    if (ext === "gif") {
         return url;
     }
 
