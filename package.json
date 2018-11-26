@@ -1,0 +1,16 @@
+{
+  "name": "miniprogram-cdn",
+  "version": "1.0.0",
+  "description": "auzre cn cdn compress for miniprogarm",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc index.ts --target es5 -d",
+    "publish": "npm publish --access public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "New Future",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.1.6"
+  }
+}
