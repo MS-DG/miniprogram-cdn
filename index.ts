@@ -99,7 +99,7 @@ class Config {
     public replaceUrl(url: string, cdnSite: string): string {
         return url.split(COMPRESS_PREFIX)[0]
             .replace("https://mpfcdn.live.com/", cdnSite)
-            .replace("https://digicard-int.live.com", cdnSite);
+            .replace("https://digicard-int.live.com/", cdnSite);
     }
 }
 
