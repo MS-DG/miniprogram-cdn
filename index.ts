@@ -6,12 +6,22 @@ const COMPRESS_PREFIX = '?basic=';
  * @returns lower string 后缀名
  */
 function getExt(path: string): string {
-    var index = path.lastIndexOf(".");
-    return path.substr(index + 1).toLowerCase();
+    return path && path.substr(path.lastIndexOf(".") + 1).toLowerCase();
 }
 
 export interface CDNOptions {
     url: string;
+    /**
+     * 0 或 不定义	锁定宽高比且长边优先
+    1	锁定宽高比且短边优先
+    2	强制宽高
+    4	锁定宽高比且短边优先，并在缩放后以指定颜色填充空白区域（若颜色未指定则自动采用白色填充
+     */
+    scaleType?: 0 | 1 | 2 | 4;
+    /**
+     * 值为 0 或 1 的整数，默认为 0 即不进行其他操作，为1则自动裁剪原图至指定尺寸
+     */
+    cut?: boolean;
     /**
      * 输出宽度
      */
@@ -97,20 +107,20 @@ class Config {
      * URL预处理
      */
     public replaceUrl(url: string, cdnSite: string): string {
-        return url.split(COMPRESS_PREFIX)[0]
+        return url && url.split(COMPRESS_PREFIX)[0]
             .replace("https://mpfcdn.live.com/", cdnSite)
             .replace("https://digicard-int.live.com/", cdnSite);
     }
 }
 
-export const config = new Config();
+const config = new Config();
 
 
 /**
  * 生成压缩URL
  * @param option 
  */
-export function buildCompressedUrl(option: CDNOptions): string {
+function buildCompressedUrl(option: CDNOptions): string {
     const url = config.replaceUrl(option.url, "https://mpfcdnimage.live.com/");
     const ext = getExt(url);
     //gif图不处理
@@ -131,6 +141,12 @@ export function buildCompressedUrl(option: CDNOptions): string {
     if (option.progressive) {
         param += `_1pr`;
     }
+    if (option.scaleType) {
+        param += `_${option.scaleType}e`;
+    }
+    if (option.cut) {
+        param += `_1c`;
+    }
     if (option.ext) {
         param += option.ext;
     }
@@ -138,7 +154,10 @@ export function buildCompressedUrl(option: CDNOptions): string {
     return param ? (url + COMPRESS_PREFIX + (option.handleiflarger ? '1l' : '0l') + param) : url;
 }
 
-
+export {
+    config,
+    buildCompressedUrl,
+}
 /**
  * 屏幕宽度自适应图像
  * @param url url of image
