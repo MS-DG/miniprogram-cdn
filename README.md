@@ -46,7 +46,7 @@ config.StreamCDN = "https://streamcdn.microsoft.com";
 
 //图片处理
 const thumbnailURL = thumbnail(oldUrl); // 低分辨率缩率图十几KB
-const shareCover = shareImage(oldUrl); // 微信对化消息分享的压缩裁切图
+const shareCover = shareImage(oldUrl); // 微信对话消息分享的压缩裁切图
 const adativeURL = adaptiveImage(oldUrl); // 屏幕大小自适应压缩(有损)
 const progressiveURL = progressiveImage(oldUrl); // 渐进加载大图(无损)
 ```
