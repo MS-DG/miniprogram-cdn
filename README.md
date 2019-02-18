@@ -20,7 +20,7 @@ import { config } from "miniprogram-cdn";
 //待替换的域名列表
 config.DomainList = [
     "http://blob.xx.com", //待替换的域名
-    /https?:static.xxx.com/, //支持正则表达式
+    /https?:\/\/static.xxx.com/, //支持正则表达式
 ];
 // 图片处理CDN域名
 config.ImageCDN = "https://imgcdn.microsoft.com";
