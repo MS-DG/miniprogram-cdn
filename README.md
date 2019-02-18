@@ -51,7 +51,41 @@ const adativeURL = adaptiveImage(oldUrl); // 屏幕大小自适应压缩(有损)
 const progressiveURL = progressiveImage(oldUrl); // 渐进加载大图(无损)
 ```
 
+高级用法
+
+```ts
+//高级用法
+compress({
+    url: string;
+    /**
+     * 输出宽度
+     */
+    width: number;
+    /**
+     * 输出高度
+     */
+    height: number;
+    /**
+     * 图片质量默认100
+     */
+    quality: number;
+    /**
+     * 是否渐进加载
+     */
+    progressive: boolean;
+    /**
+     * 图片过大是否处理
+     */
+    handleiflarger: boolean;
+    /**
+     * 输出格式
+     */
+    ext: '.jpg' | '.webp' | '.png' | '.jpeg' | '.gif';
+})
+```
+
 ### stream 音视频加速
+
 ```js
 //stream 音频适配
 const streamUrl = streamCdn(oldUrl);//
