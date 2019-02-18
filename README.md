@@ -2,58 +2,57 @@
 
 auzre cn cdn compress for miniprogarm
 
-CDN 图片压缩处理，小程序自适应,仅仅支持Azure https://docs.azure.cn/zh-cn/cdn/cdn-image-processing
+CDN 图片压缩处理，小程序自适应,仅仅支持 Azure https://docs.azure.cn/zh-cn/cdn/cdn-image-processing
 
+## 安装 install
 
-`npm i miniprogram-cdn`
+1. `npm i miniprogram-cdn`
+2. 开发工具 构建 npm
 
-### quick start
+## quick start
+
+### config 配置
 
 ```js
-import {config,adaptiveImage,adaptiveLandscapeImage,progressiveImage,thumbnail} from "miniprogram-cdn";
+import { config } from "miniprogram-cdn";
 
-config.Quality=90;//config 可全局配置
-
-url0 = thumbnail(url);//生成小尺寸模糊缩略图,可在config中配置
-
-url1 = adaptiveImage(url);//根据屏幕宽度自适应压缩,自动选择渐进加载,webp格式IOS兼容等
-url2 = adaptiveLandscapeImage(url);//自适应横屏图片,自动选择渐进加载,webp格式IOS兼容等
-url3 = progressiveImage(url);//生成渐进加载,无损压缩不修改分辨率
+// 设置config 只需配置一次
+//待替换的域名列表
+config.DomainList = [
+    "http://blob.xx.com", //待替换的域名
+    /https?:static.xxx.com/, //支持正则表达式
+];
+// 图片处理CDN域名
+config.ImageCDN = "https://imgcdn.microsoft.com";
+// 流媒体加速CDN域名
+config.StreamCDN = "https://streamcdn.microsoft.com";
 ```
 
-
-### 自定义压缩
+### image 图片处理
 
 ```js
+import { adaptiveImage, progressiveImage, thumbnail, shareImage, compress } from "miniprogram-cdn";
 
-import {buildCompressedUrl} from "miniprogram-cdn"
+// 设置config 只需配置一次
+//待替换的域名列表
+config.DomainList = [
+    "http://blob.xx.com", //待替换的域名
+    /https?:static.xxx.com/, //支持正则表达式
+];
+// 图片处理CDN域名
+config.ImageCDN = "https://imgcdn.microsoft.com";
+// 流媒体加速CDN域名
+config.StreamCDN = "https://streamcdn.microsoft.com";
 
-buildCompressedUrl({
-    url: string;
-    /**
-     * 输出宽度
-     */
-    width: number;
-    /**
-     * 输出高度
-     */
-    height: number;
-    /**
-     * 图片质量默认100
-     */
-    quality: number;
-    /**
-     * 是否渐进加载
-     */
-    progressive: boolean;
-    /**
-     * 图片过大是否处理
-     */
-    handleiflarger: boolean;
-    /**
-     * 输出格式
-     */
-    ext: '.jpg' | '.webp' | '.png' | '.jpeg' | '.gif';
-})
+//图片处理
+const thumbnailURL = thumbnail(oldUrl); // 低分辨率缩率图十几KB
+const shareCover = shareImage(oldUrl); // 微信对化消息分享的压缩裁切图
+const adativeURL = adaptiveImage(oldUrl); // 屏幕大小自适应压缩(有损)
+const progressiveURL = progressiveImage(oldUrl); // 渐进加载大图(无损)
+```
 
+### stream 音视频加速
+```js
+//stream 音频适配
+const streamUrl = streamCdn(oldUrl);//
 ```
