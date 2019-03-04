@@ -10,7 +10,8 @@ git:
 
 
 before_deploy:
-  - sed -i "s/\(\"version".*\"\).*\(\",\)$/\1${TRAVIS_TAG:1}\2/" package.json
+  - sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${TRAVIS_TAG:1}\2/" package.json
+  # - sed -i "s/\(\"version".*\"\).*\(\",\)$/\1${TRAVIS_TAG:1}\2/" package.json
   # - sed -i "s/\\"version\\":.*$/\\"version\\": \\"${TRAVIS_TAG:1}\\",/" package.json
   # - "sed -i 's/\"version\":.*$/\"version\": \"${TRAVIS_TAG:1}\",/' package.json"
 
