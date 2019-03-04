@@ -9,7 +9,7 @@
         "start": "npm run build",
         "build": "npm run build:es5 && npm run build:es6",
         "build:es5": "tsc index.ts --target es5 -d --outDir dist",
-        "build:es6": "tsc index.ts --target es6 -d --outDir es",
+        "build:es6": "tsc index.ts --target es6 -m es6 -d --outDir es",
         "pub": "npm run build && npm publish --access public",
         "test": "npm run build"
     },
