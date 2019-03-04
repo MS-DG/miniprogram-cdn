@@ -3,15 +3,19 @@
     "version": "2.0.2",
     "description": "auzre cn cdn compress for miniprogarm",
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "module": "es/index.js",
+    "typings": "e/index.d.ts",
     "scripts": {
-        "build": "tsc index.ts --target es5 -d --outDir dist",
+        "start": "npm run build",
+        "build": "npm run build:es5 && npm run build:es6",
+        "build:es5": "tsc index.ts --target es5 -d --outDir dist",
+        "build:es6": "tsc index.ts --target es6 -d --outDir es",
         "pub": "npm run build && npm publish --access public",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npm run build"
     },
     "author": "New Future",
     "license": "ISC",
     "devDependencies": {
-        "typescript": "^3.1.6"
+        "typescript": "^3.3.3333"
     }
 }
