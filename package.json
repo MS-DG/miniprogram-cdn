@@ -4,7 +4,11 @@
     "description": "auzre cn cdn compress for miniprogarm",
     "main": "dist/index.js",
     "module": "es/index.js",
-    "typings": "e/index.d.ts",
+    "typings": "es/index.d.ts",
+    "files": [
+        "dist/",
+        "es/"
+    ],
     "scripts": {
         "start": "npm run build",
         "build": "npm run build:es5 && npm run build:es6",
