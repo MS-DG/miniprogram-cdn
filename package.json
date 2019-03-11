@@ -17,7 +17,11 @@
         "pub": "npm run build && npm publish --access public",
         "test": "npm run build"
     },
-    "author": "New Future",
+    "author": "New Future <New.Future@microsfot.com>",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MS-DG/miniprogram-cdn.git"
+    },
     "license": "ISC",
     "devDependencies": {
         "typescript": "^3.3.3333"
