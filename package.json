@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-cdn",
-    "version": "2.0.2",
+    "version": "0.0.0",
     "description": "auzre cn cdn compress for miniprogarm",
     "main": "dist/index.js",
     "module": "es/index.js",
