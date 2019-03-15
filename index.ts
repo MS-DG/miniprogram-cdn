@@ -28,14 +28,13 @@ function replaceUrl(url: string, domainList: Array<string | RegExp>, cdnSite: st
  */
 class Config {
     /**
-     * 宽度
+     * 宽度, 默认2K屏
      */
-    public Width = 768;
-
+    public Width = 1440;
     /**
-     * 屏幕高度
+     * 屏幕高度, 默认2K屏幕
      */
-    public Height = 1024;
+    public Height = 2560;
     /**
      * 图片质量1~100
      */
@@ -66,27 +65,27 @@ class Config {
      */
     public StreamCDN = "";
 
-    public readonly isAndroid = false;
+    public isAndroid = false;
 
-    constructor() {
-        //@ts-ignore
-        if (typeof wx === "object" && wx.getSystemInfo) {
-            wx.getSystemInfo({
-                success: res => {
-                    //@ts-ignore
-                    this.isAndroid = res.platform !== "ios";
-                    this.Width = Math.round((res.windowWidth || res.screenWidth) * res.pixelRatio) || this.Width;
-                    if (this.Width > 4096) {
-                        this.Width = 4096;
-                    }
-                    this.Height = Math.round((res.screenHeight || res.windowWidth) * res.pixelRatio) || this.Height;
-                    if (this.Width > 4096) {
-                        this.Width = 4096;
-                    }
-                },
-            });
-        }
-    }
+    // constructor() {
+    //     //@ts-ignore
+    //     if (typeof wx === "object" && wx.getSystemInfo) {
+    //         wx.getSystemInfo({
+    //             success: res => {
+    //                 //@ts-ignore
+    //                 this.isAndroid = res.platform !== "ios";
+    //                 this.Width = Math.round((res.windowWidth || res.screenWidth) * res.pixelRatio) || this.Width;
+    //                 if (this.Width > 4096) {
+    //                     this.Width = 4096;
+    //                 }
+    //                 this.Height = Math.round((res.screenHeight || res.windowWidth) * res.pixelRatio) || this.Height;
+    //                 if (this.Width > 4096) {
+    //                     this.Width = 4096;
+    //                 }
+    //             },
+    //         });
+    //     }
+    // }
 }
 
 export const config = /*#__PURE__*/ new Config();
@@ -130,8 +129,7 @@ export function compress(
     if (option.ext) {
         param += option.ext;
     }
-
-    return param ? url + COMPRESS_PREFIX + (option.handleiflarger ? "1l" : "0l") + param : url;
+    return param ? url + COMPRESS_PREFIX + (option.larger ? "0l" : "1l") + param : url;
 }
 
 /**
@@ -204,6 +202,7 @@ export function shareImage(url: string): string {
             cut: true,
             scaleType: 1,
             quality: 75,
+            larger: true,
             ext: ".jpg",
         },
         config.ImageCDN,
@@ -272,9 +271,11 @@ export interface CDNOptions {
      */
     progressive?: boolean;
     /**
-     * 图片过大是否处理
+     * 图片是否放大
+     * 默认值为false，
+     * 为 `true` 即允许将图片缩放至大于原图的尺寸，
      */
-    handleiflarger?: boolean;
+    larger?: boolean;
     /**
      * 输出格式
      */

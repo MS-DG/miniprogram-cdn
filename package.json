@@ -7,17 +7,18 @@
     "typings": "es/index.d.ts",
     "files": [
         "dist/",
-        "es/"
+        "es/",
+        "index.ts"
     ],
     "scripts": {
         "start": "npm run build",
         "build": "npm run build:es5 && npm run build:es6",
-        "build:es5": "tsc index.ts --target es5 -d --outDir dist",
-        "build:es6": "tsc index.ts --target es6 -m es6 -d --outDir es",
+        "build:es5": "tsc index.ts --target es5 --declarationMap -d --outDir dist",
+        "build:es6": "tsc index.ts --target es6 --declarationMap -m es6 -d --outDir es",
         "pub": "npm run build && npm publish --access public",
         "test": "npm run build"
     },
-    "author": "New Future <New.Future@microsfot.com>",
+    "author": "NewFuture <New.Future@microsfot.com>",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/MS-DG/miniprogram-cdn.git"
