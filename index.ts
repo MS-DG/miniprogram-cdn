@@ -26,69 +26,47 @@ function replaceUrl(url: string, domainList: Array<string | RegExp>, cdnSite: st
 /**
  * 配置信息
  */
-class Config {
+export const config = /*#__PURE__*/ {
     /**
      * 宽度, 默认2K屏
      */
-    public Width = 1440;
+    Width: 1440,
     /**
      * 屏幕高度, 默认2K屏幕
      */
-    public Height = 2560;
+    Height: 2560,
     /**
      * 图片质量1~100
      */
-    public Quality = 100;
+    Quality: 100,
 
     /**
      * 缩略图宽度
      */
-    public ThumbnailWidth = 138;
+    ThumbnailWidth: 138,
 
     /**
      * 缩略图宽度1~100
      */
-    public ThumbnailQuality = 1;
+    ThumbnailQuality: 1,
 
     /**
      * 代替换的域名列表
      */
-    public DomainList = [] as Array<string | RegExp>;
+    DomainList: [] as Array<string | RegExp>,
 
     /**
      * 图片处理CDN
      */
-    public ImageCDN = "";
+    ImageCDN: "",
 
     /**
      * 媒体流加速CDN
      */
-    public StreamCDN = "";
+    StreamCDN: "",
 
-    public isAndroid = false;
-
-    // constructor() {
-    //     //@ts-ignore
-    //     if (typeof wx === "object" && wx.getSystemInfo) {
-    //         wx.getSystemInfo({
-    //             success: res => {
-    //                 //@ts-ignore
-    //                 this.isAndroid = res.platform !== "ios";
-    //                 this.Width = Math.round((res.windowWidth || res.screenWidth) * res.pixelRatio) || this.Width;
-    //                 if (this.Width > 4096) {
-    //                     this.Width = 4096;
-    //                 }
-    //                 this.Height = Math.round((res.screenHeight || res.windowWidth) * res.pixelRatio) || this.Height;
-    //                 if (this.Width > 4096) {
-    //                     this.Width = 4096;
-    //                 }
-    //             },
-    //         });
-    //     }
-    // }
-}
-
-export const config = /*#__PURE__*/ new Config();
+    isAndroid: false,
+};
 
 /**
  * 生成压缩URL
@@ -96,11 +74,7 @@ export const config = /*#__PURE__*/ new Config();
  * @param cdnSite CDN域名 如 `https://mycdn.net/` 空则不替换
  * @param domainList 域名列表 `[/^https?:\/\/[\w\-\.]*\//]`
  */
-export function compress(
-    option: CDNOptions,
-    cdnSite?: string,
-    domainList: Array<string | RegExp> = [/^https?:\/\/[\w\-\.]*\//],
-): string {
+export function compress(option: CDNOptions, cdnSite?: string, domainList: Array<string | RegExp> = []): string {
     const url = cdnSite ? replaceUrl(option.url, domainList, cdnSite) : cdnSite;
     // //gif图不处理
     // if (ext === "gif") {
