@@ -103,7 +103,7 @@ export function compress(option: CDNOptions, cdnSite?: string, domainList: Array
     if (option.ext) {
         param += option.ext;
     }
-    return param ? url + COMPRESS_PREFIX + (option.larger ? "0l" : "1l") + param : url;
+    return param ? url + COMPRESS_PREFIX + (option.larger ? "0l" : "1l") + param + (option.acceptraw ? '&p=acceptraw' : '') : url;
 }
 
 /**
@@ -111,17 +111,20 @@ export function compress(option: CDNOptions, cdnSite?: string, domainList: Array
  * @param url url of image
  */
 export function adaptiveImage(url: string): string {
-    return compress(
-        {
-            url: url,
-            width: config.Width,
-            quality: config.Quality,
-            progressive: config.Width > 800,
-            ext: isGif(url) ? ".gif" : config.isAndroid ? ".webp" : ".jpg",
-        },
-        config.ImageCDN,
-        config.DomainList,
-    );
+    return isGif(url)
+        ? url // gif 不处理
+        : compress(
+            {
+                acceptraw: true,
+                url: url,
+                width: config.Width,
+                quality: config.Quality,
+                progressive: config.Width > 800,
+                ext: isGif(url) ? ".gif" : config.isAndroid ? ".webp" : ".jpg",
+            },
+            config.ImageCDN,
+            config.DomainList,
+        );
 }
 
 /**
