@@ -120,7 +120,7 @@ export function adaptiveImage(url: string): string {
                 width: config.Width,
                 quality: config.Quality,
                 progressive: config.Width > 800,
-                ext: isGif(url) ? ".gif" : config.isAndroid ? ".webp" : ".jpg",
+                ext: config.isAndroid ? ".webp" : ".jpg",
             },
             config.ImageCDN,
             config.DomainList,
