@@ -133,16 +133,17 @@ export function adaptiveLandscapeImage(url: string): string {
     return isGif(url)
         ? url // gif 不处理
         : compress(
-              {
-                  url: url,
-                  width: width,
-                  quality: config.Quality,
-                  progressive: width > 800,
-                  ext: config.isAndroid ? ".webp" : ".jpg",
-              },
-              config.ImageCDN,
-              config.DomainList,
-          );
+            {
+                acceptraw: true,
+                url: url,
+                width: width,
+                quality: config.Quality,
+                progressive: width > 800,
+                ext: config.isAndroid ? ".webp" : ".jpg",
+            },
+            config.ImageCDN,
+            config.DomainList,
+        );
 }
 
 /**
@@ -153,14 +154,15 @@ export function progressiveImage(url: string): string {
     return isGif(url)
         ? url // gif 不处理
         : compress(
-              {
-                  url: url,
-                  progressive: true,
-                  ext: config.isAndroid ? ".webp" : ".jpg",
-              },
-              config.ImageCDN,
-              config.DomainList,
-          );
+            {
+                acceptraw: true,
+                url: url,
+                progressive: true,
+                ext: config.isAndroid ? ".webp" : ".jpg",
+            },
+            config.ImageCDN,
+            config.DomainList,
+        );
 }
 
 /**
@@ -170,6 +172,7 @@ export function progressiveImage(url: string): string {
 export function shareImage(url: string): string {
     return compress(
         {
+            acceptraw: true,
             url: url,
             width: 500,
             height: 400,
@@ -191,6 +194,7 @@ export function shareImage(url: string): string {
 export function thumbnail(url: string): string {
     return compress(
         {
+            acceptraw: true,
             url: url,
             width: config.ThumbnailWidth,
             quality: config.ThumbnailQuality,
@@ -254,6 +258,11 @@ export interface CDNOptions {
      * 输出格式
      */
     ext?: ".jpg" | ".webp" | ".png" | ".jpeg" | ".gif";
+
+    /**
+     * 处理失败是否返回原图
+     */
+    acceptraw?: boolean;
 }
 
 declare namespace wx {
