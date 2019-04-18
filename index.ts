@@ -15,7 +15,7 @@ export function isGif(path: string): boolean {
  */
 function replaceUrl(url: string, domainList: Array<string | RegExp>, cdnSite: string): string {
     if (typeof url !== "string") {
-        console.error("invalid url<not string>:", url);
+        (console.error || console.log)("invalid url<not string>:", url);
     } else {
         url = url.split(COMPRESS_PREFIX)[0];
         domainList.forEach(e => (url = url.replace(e, cdnSite)));
@@ -266,8 +266,4 @@ export interface CDNOptions {
      * 处理失败是否返回原图
      */
     acceptraw?: boolean;
-}
-
-declare namespace wx {
-    export function getSystemInfo(o: object);
 }
