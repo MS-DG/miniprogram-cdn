@@ -1,4 +1,4 @@
-///<reference lib="es2015.core"/>
+
 
 const COMPRESS_PREFIX = /*#__PURE__*/ "?basic=";
 
@@ -7,7 +7,7 @@ const COMPRESS_PREFIX = /*#__PURE__*/ "?basic=";
  * @param path 文件名
  */
 export function isGif(path: string): boolean {
-    return path && path.toLowerCase().endsWith(".gif");
+    return path && path.toLowerCase().substring(path.length - 4, path.length) === ".gif";
 }
 
 /**
@@ -15,7 +15,7 @@ export function isGif(path: string): boolean {
  */
 function replaceUrl(url: string, domainList: Array<string | RegExp>, cdnSite: string): string {
     if (typeof url !== "string") {
-        (console.error || console.log)("invalid url<not string>:", url);
+        ((console as any).error || console.log)("[cdn]invalid url:", url);
     } else {
         url = url.split(COMPRESS_PREFIX)[0];
         domainList.forEach(e => (url = url.replace(e, cdnSite)));

@@ -25,6 +25,6 @@
     },
     "license": "ISC",
     "devDependencies": {
-        "typescript": "^3.3.3333"
+        "typescript": "^3.5.2"
     }
 }
