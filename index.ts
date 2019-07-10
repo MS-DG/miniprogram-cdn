@@ -173,21 +173,23 @@ export function progressiveImage(url: string): string {
  * @param url image Url
  */
 export function shareImage(url: string): string {
-    return compress(
-        {
-            acceptraw: true,
-            url: url,
-            width: 500,
-            height: 400,
-            cut: true,
-            scaleType: 1,
-            quality: 75,
-            larger: true,
-            ext: ".jpg",
-        },
-        config.ImageCDN,
-        config.DomainList,
-    );
+    return isGif(url)
+        ? url
+        : compress(
+            {
+                acceptraw: true,
+                url: url,
+                width: 500,
+                height: 400,
+                cut: true,
+                scaleType: 1,
+                quality: 75,
+                larger: true,
+                ext: ".jpg",
+            },
+            config.ImageCDN,
+            config.DomainList,
+        );
 }
 
 /**
@@ -214,6 +216,36 @@ export function thumbnail(url: string): string {
  */
 export function streamCdn(url: string): string {
     return config.StreamCDN ? replaceUrl(url, config.DomainList, config.StreamCDN) : url;
+}
+
+/**
+ * 压缩头像
+ * @param url
+ * @param size
+ */
+export function compressAvatar(url: string, size: 0 | 46 | 64 | 96 | 132): string {
+    if (url.indexOf("https://wx.qlogo.cn") === 0) {
+        return url.substring(0, url.lastIndexOf("/") + 1) + size;
+    }
+    return isGif(url)
+        ? url
+        : compress(
+            size > 0
+                ? {
+                    url: url,
+                    width: size,
+                    height: size,
+                    cut: true,
+                    scaleType: 1,
+                    ext: ".jpg",
+                    acceptraw: true,
+                }
+                : {
+                    url: url,
+                    ext: ".jpg",
+                    acceptraw: true,
+                },
+        );
 }
 
 /**
