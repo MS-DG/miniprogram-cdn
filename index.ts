@@ -245,6 +245,8 @@ export function compressAvatar(url: string, size: 0 | 46 | 64 | 96 | 132): strin
                     ext: ".jpg",
                     acceptraw: true,
                 },
+            config.ImageCDN,
+            config.DomainList,
         );
 }
 
