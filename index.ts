@@ -15,7 +15,7 @@ export function isGif(path: string): boolean {
  */
 function replaceUrl(url: string, domainList: Array<string | RegExp>, cdnSite: string): string {
     if (typeof url !== "string") {
-        ((console as any).error || console.log)("[cdn]invalid url:", url);
+        (console.error || console.log)("[cdn]invalid url:", url);
     } else {
         url = url.split(COMPRESS_PREFIX)[0];
         domainList.forEach(e => (url = url.replace(e, cdnSite)));
@@ -70,16 +70,16 @@ export const config = /*#__PURE__*/ {
 
 /**
  * 生成压缩URL
+ * 非http/https资源不处理
  * @param option 压缩参数
  * @param cdnSite CDN域名 如 `https://mycdn.net/` 空则不替换
  * @param domainList 域名列表 `[/^https?:\/\/[\w\-\.]*\//]`
  */
 export function compress(option: CDNOptions, cdnSite?: string, domainList: Array<string | RegExp> = []): string {
+    if (option.url.indexOf('http') !== 0) {
+        return option.url;
+    }
     const url = cdnSite ? replaceUrl(option.url, domainList, cdnSite) : cdnSite;
-    // //gif图不处理
-    // if (ext === "gif") {
-    //     return url;
-    // }
 
     let param: string = "";
     if (option.width) {
