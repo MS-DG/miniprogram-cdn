@@ -79,7 +79,7 @@ export function compress(option: CDNOptions, cdnSite?: string, domainList: Array
     if (option.url.indexOf('http') !== 0) {
         return option.url;
     }
-    const url = cdnSite ? replaceUrl(option.url, domainList, cdnSite) : cdnSite;
+    const url = cdnSite ? replaceUrl(option.url, domainList, cdnSite) : option.url;
 
     let param: string = "";
     if (option.width) {
